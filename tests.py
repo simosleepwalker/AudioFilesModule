@@ -1,7 +1,7 @@
 from cgi import test
 import afm.checker.audio_file_checker_factory as afcf
 from afm.exporter.audio_file_exporter import audio_file_exporter
-from afm.dual_mono_converter import converter
+from afm.dual_mono_converter import dual_mono_converter
 
 def test_wav_mono() -> bool:
     a = afcf.getAudioFileChecker('input/test_mono.wav','wav')
@@ -34,7 +34,7 @@ def run_tests():
     print ("all tests ran correctly")
 
 def run_generic_test():
-    conv = converter('input/', 'output/')
+    conv = dual_mono_converter('input/', 'output/')
     result = conv.convert()
     print(result)
 

@@ -6,7 +6,7 @@ import afm.checker.audio_file_checker_factory
 from afm.exporter.audio_file_exporter import audio_file_exporter as afe
 import shutil
 
-class converter:
+class dual_mono_converter:
 
     #returns a list of the converted files and a list of just copied files
     def convert(self) -> List:
