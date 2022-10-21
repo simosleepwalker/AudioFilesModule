@@ -16,7 +16,16 @@ class dual_mono_converter:
             filename, fileext = os.path.splitext(file)
             filename =  os.path.splitext(os.path.basename(file))[0]
             checker = afm.checker.audio_file_checker_factory.getAudioFileChecker(file, fileext)
-            if checker.isDualMono():
+
+            monoButStereo = checker.isMonoButStereo()
+            if monoButStereo != False:
+                exporter = afe(filename + '_exported' + fileext, checker.getLeftChannel() if monoButStereo == 'L'  else checker.getRightChannel(), checker.getSr(), self.output)
+                result = exporter.export()
+                if (result == True):
+                    converted.append(filename+fileext)
+                else:
+                    raise Exception
+            elif checker.isDualMono():
                 exporter = afe(filename + '_exported' + fileext, checker.getLeftChannel(), checker.getSr(), self.output)
                 result = exporter.export()
                 if (result == True):

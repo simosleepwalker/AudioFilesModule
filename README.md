@@ -33,4 +33,4 @@ The class **dual_mono_converter** has a constructor that takes two strings:
 - *output* &rarr; a string with the path to the output folder 
 
 Calling the method *convert ( )* will check the file (or folder) in input. 
-Each dual mono file found will be converted to mono and written in the output folder, the other files will be simply copied.
+Each dual mono file found will be converted to mono and written in the output folder, the other files will be simply copied, the method returns two lists: one for the converted files and one for the copied files.

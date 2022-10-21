@@ -11,7 +11,8 @@ class mp3_audio_file_checker(audio_file_checker):
     def getRightChannel(self):
         return self.rightChannel
 
-    def __init__(self, path: str) -> None:
+    def __init__(self, path: str, tolerance: int = 0.001) -> None:
+        self.tolerance = tolerance
         self.data, self.sr = librosa.load(path, sr=None, mono=False)
         if self.data.shape[0] == 2:
             self.channels = 2
