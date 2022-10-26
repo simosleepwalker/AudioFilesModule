@@ -1,5 +1,3 @@
-import pandas as pd
-
 class audio_file_checker:
 
     #does not implicate is stereo
