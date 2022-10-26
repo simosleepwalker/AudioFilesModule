@@ -2,8 +2,8 @@ from tabnanny import check
 from typing import List
 import glob2
 import os
-import checker.audio_file_checker_factory
-from exporter.audio_file_exporter import audio_file_exporter as afe
+import afm.checker.audio_file_checker_factory
+from afm.exporter.audio_file_exporter import audio_file_exporter as afe
 import shutil
 
 class dual_mono_converter:
@@ -15,7 +15,7 @@ class dual_mono_converter:
         for file in self.files:
             filename, fileext = os.path.splitext(file)
             filename =  os.path.splitext(os.path.basename(file))[0]
-            checker = checker.audio_file_checker_factory.getAudioFileChecker(file, fileext)
+            checker = afm.checker.audio_file_checker_factory.getAudioFileChecker(file, fileext)
 
             monoButStereo = checker.isMonoButStereo()
             if monoButStereo != False:
