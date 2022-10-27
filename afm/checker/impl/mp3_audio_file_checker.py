@@ -1,5 +1,5 @@
 import librosa
-from afm.checker.audio_file_checker import audio_file_checker
+from ..audio_file_checker import audio_file_checker
 
 class mp3_audio_file_checker(audio_file_checker):
 

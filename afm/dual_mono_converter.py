@@ -2,8 +2,8 @@ from tabnanny import check
 from typing import List
 import glob2
 import os
-import afm.checker.audio_file_checker_factory
-from afm.exporter.audio_file_exporter import audio_file_exporter as afe
+from .checker import audio_file_checker_factory
+from .exporter.audio_file_exporter import audio_file_exporter as afe
 import shutil
 
 class dual_mono_converter:
