@@ -15,7 +15,7 @@ class dual_mono_converter:
         for file in self.files:
             filename, fileext = os.path.splitext(file)
             filename =  os.path.splitext(os.path.basename(file))[0]
-            checker = afm.checker.audio_file_checker_factory.getAudioFileChecker(file, fileext)
+            checker = audio_file_checker_factory.getAudioFileChecker(file, fileext)
 
             monoButStereo = checker.isMonoButStereo()
             if monoButStereo != False:
