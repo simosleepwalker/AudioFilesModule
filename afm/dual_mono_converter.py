@@ -46,6 +46,16 @@ class dual_mono_converter:
                 logging.info(msg='File {} copied'.format(filename + fileext))
         return converted, not_converted         
 
+    def __init__(self, input: str, output: str, loggingoutput) -> None:
+        logging.basicConfig(level=logging.INFO, stream=loggingoutput)
+        if os.path.isdir(output) and (os.path.dirname(input) != output):
+            self.output = output
+            if (os.path.isdir(input)):
+                self.files = glob2.glob(input+'/*.wav') + glob2.glob(input+'/*.mp3')
+            else:
+                self.files = [ input ]
+        else:
+            raise Exception
 
     def __init__(self, input: str, output: str) -> None:
         logging.StreamHandler(sys.stdout)
