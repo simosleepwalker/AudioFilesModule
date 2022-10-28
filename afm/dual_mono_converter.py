@@ -5,6 +5,7 @@ import os
 from .checker import audio_file_checker_factory
 from .exporter.audio_file_exporter import audio_file_exporter as afe
 import shutil
+import logging
 
 class dual_mono_converter:
 
@@ -13,28 +14,35 @@ class dual_mono_converter:
         converted = []
         not_converted = []
         for file in self.files:
+            logging.log("=========== ANALYZING FILE {} ===========".format({filename + fileext}))
             filename, fileext = os.path.splitext(file)
             filename =  os.path.splitext(os.path.basename(file))[0]
             checker = audio_file_checker_factory.getAudioFileChecker(file, fileext)
 
             monoButStereo = checker.isMonoButStereo()
             if monoButStereo != False:
+                logging.log(msg='File {} is MONO BUT STEREO'.format(filename + fileext))
                 exporter = afe(filename + '_exported' + fileext, checker.getLeftChannel() if monoButStereo == 'L'  else checker.getRightChannel(), checker.getSr(), self.output)
                 result = exporter.export()
                 if (result == True):
                     converted.append(filename+fileext)
+                    logging.log(msg='File {} converted'.format(filename + fileext))
                 else:
                     raise Exception
             elif checker.isDualMono():
+                logging.log(msg='File {} is DUAL MONO'.format(filename + fileext))
                 exporter = afe(filename + '_exported' + fileext, checker.getLeftChannel(), checker.getSr(), self.output)
                 result = exporter.export()
                 if (result == True):
                     converted.append(filename+fileext)
+                    logging.log(msg='File {} converted'.format(filename + fileext))
                 else:
                     raise Exception
             else:
+                logging.log(msg='File {} is STEREO'.format(filename + fileext))
                 shutil.copy(file,self.output)
                 not_converted.append(filename+fileext)
+                logging.log(msg='File {} copied'.format(filename + fileext))
         return converted, not_converted         
 
 
