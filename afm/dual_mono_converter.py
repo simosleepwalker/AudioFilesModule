@@ -14,8 +14,8 @@ class dual_mono_converter:
         converted = []
         not_converted = []
         for file in self.files:
-            logging.log("=========== ANALYZING FILE {} ===========".format({filename + fileext}))
             filename, fileext = os.path.splitext(file)
+            logging.log("=========== ANALYZING FILE {} ===========".format({filename + fileext})) 
             filename =  os.path.splitext(os.path.basename(file))[0]
             checker = audio_file_checker_factory.getAudioFileChecker(file, fileext)
 
