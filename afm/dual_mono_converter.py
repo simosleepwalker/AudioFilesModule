@@ -44,6 +44,6 @@ class dual_mono_converter:
             if (os.path.isdir(input)):
                 self.files = glob2.glob(input+'/*.wav') + glob2.glob(input+'/*.mp3')
             else:
-                self.files = input
+                self.files = [ input ]
         else:
             raise Exception
