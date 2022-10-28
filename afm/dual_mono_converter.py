@@ -15,34 +15,34 @@ class dual_mono_converter:
         not_converted = []
         for file in self.files:
             filename, fileext = os.path.splitext(file)
-            logging.log("=========== ANALYZING FILE {} ===========".format(filename + fileext)) 
+            logging.info("=========== ANALYZING FILE {} ===========".format(filename + fileext)) 
             filename =  os.path.splitext(os.path.basename(file))[0]
             checker = audio_file_checker_factory.getAudioFileChecker(file, fileext)
 
             monoButStereo = checker.isMonoButStereo()
             if monoButStereo != False:
-                logging.log(msg='File {} is MONO BUT STEREO'.format(filename + fileext))
+                logging.info(msg='File {} is MONO BUT STEREO'.format(filename + fileext))
                 exporter = afe(filename + '_exported' + fileext, checker.getLeftChannel() if monoButStereo == 'L'  else checker.getRightChannel(), checker.getSr(), self.output)
                 result = exporter.export()
                 if (result == True):
                     converted.append(filename+fileext)
-                    logging.log(msg='File {} converted'.format(filename + fileext))
+                    logging.info(msg='File {} converted'.format(filename + fileext))
                 else:
                     raise Exception
             elif checker.isDualMono():
-                logging.log(msg='File {} is DUAL MONO'.format(filename + fileext))
+                logging.info(msg='File {} is DUAL MONO'.format(filename + fileext))
                 exporter = afe(filename + '_exported' + fileext, checker.getLeftChannel(), checker.getSr(), self.output)
                 result = exporter.export()
                 if (result == True):
                     converted.append(filename+fileext)
-                    logging.log(msg='File {} converted'.format(filename + fileext))
+                    logging.info(msg='File {} converted'.format(filename + fileext))
                 else:
                     raise Exception
             else:
-                logging.log(msg='File {} is STEREO'.format(filename + fileext))
+                logging.info(msg='File {} is STEREO'.format(filename + fileext))
                 shutil.copy(file,self.output)
                 not_converted.append(filename+fileext)
-                logging.log(msg='File {} copied'.format(filename + fileext))
+                logging.info(msg='File {} copied'.format(filename + fileext))
         return converted, not_converted         
 
 
