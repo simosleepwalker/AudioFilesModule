@@ -6,6 +6,7 @@ from .checker import audio_file_checker_factory
 from .exporter.audio_file_exporter import audio_file_exporter as afe
 import shutil
 import logging
+import sys
 
 class dual_mono_converter:
 
@@ -47,6 +48,7 @@ class dual_mono_converter:
 
 
     def __init__(self, input: str, output: str) -> None:
+        logging.StreamHandler(sys.stdout)
         if os.path.isdir(output) and (os.path.dirname(input) != output):
             self.output = output
             if (os.path.isdir(input)):
