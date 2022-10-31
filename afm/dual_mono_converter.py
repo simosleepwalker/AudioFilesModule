@@ -11,14 +11,14 @@ import sys
 class dual_mono_converter:
 
     #returns a list of the converted files and a list of just copied files
-    def convert(self) -> List:
+    def convert(self, threshold = 0.001) -> List:
         converted = []
         not_converted = []
         for file in self.files:
             filename, fileext = os.path.splitext(file)
             filename =  os.path.splitext(os.path.basename(file))[0]
             logging.info("=========== ANALYZING FILE {} ===========".format(filename + fileext)) 
-            checker = audio_file_checker_factory.getAudioFileChecker(file, fileext)
+            checker = audio_file_checker_factory.getAudioFileChecker(file, fileext, threshold)
 
             monoButStereo = checker.isMonoButStereo()
             if monoButStereo != False:
