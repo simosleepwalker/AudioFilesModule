@@ -40,7 +40,10 @@ class dual_mono_converter:
                 else:
                     raise Exception
             else:
-                logging.info(msg='File {} is STEREO'.format(filename + fileext))
+                if checker.isMono():
+                    logging.info(msg='File {} is MONO'.format(filename + fileext))
+                else:
+                    logging.info(msg='File {} is STEREO'.format(filename + fileext))
                 shutil.copy(file,self.output)
                 not_converted.append(filename+fileext)
                 logging.info(msg='File {} copied'.format(filename + fileext))
