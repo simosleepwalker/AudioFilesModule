@@ -21,18 +21,18 @@ class dual_mono_converter:
             checker = audio_file_checker_factory.getAudioFileChecker(file, fileext, self.threshold)
 
             monoButStereo = checker.isMonoButStereo()
-            if monoButStereo != False:
-                logging.info(msg='File {} is MONO BUT STEREO'.format(filename + fileext))
-                exporter = afe(filename + '_exported' + fileext, checker.getLeftChannel() if monoButStereo == 'L'  else checker.getRightChannel(), checker.getSr(), self.output)
+            if checker.isDualMono():
+                logging.info(msg='File {} is DUAL MONO'.format(filename + fileext))
+                exporter = afe(filename + '_exported' + fileext, checker.getLeftChannel(), checker.getSr(), self.output)
                 result = exporter.export()
                 if (result == True):
                     converted.append(filename+fileext)
                     logging.info(msg='File {} converted'.format(filename + fileext))
                 else:
                     raise Exception
-            elif checker.isDualMono():
-                logging.info(msg='File {} is DUAL MONO'.format(filename + fileext))
-                exporter = afe(filename + '_exported' + fileext, checker.getLeftChannel(), checker.getSr(), self.output)
+            elif monoButStereo != False:
+                logging.info(msg='File {} is MONO BUT STEREO'.format(filename + fileext))
+                exporter = afe(filename + '_exported' + fileext, checker.getLeftChannel() if monoButStereo == 'L'  else checker.getRightChannel(), checker.getSr(), self.output)
                 result = exporter.export()
                 if (result == True):
                     converted.append(filename+fileext)
